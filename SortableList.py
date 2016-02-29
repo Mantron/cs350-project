@@ -52,6 +52,13 @@ class SortableList:
 			rstring = ''.join([random.choice(string.ascii_lowercase) for j in xrange(length)])
 			self.my_list.append(rstring)		
 
+	# Checks if self.my_list is sorted
+	def isSorted(self):
+		for i in range(1, self.size):
+			if (self.my_list[i-1] > self.my_list[i]):
+				return false
+		return True
+
 	def sort(self, algo):
 		if (algo == "bucket"):
 			self.sortBucket()
