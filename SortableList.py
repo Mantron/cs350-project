@@ -72,9 +72,12 @@ class SortableList:
 			self.sortQuick()
 		elif (algo == "selection"):
 			self.sortSelection()
+		elif (algo == "shell"):
+			self.sortShell()
 		else:
 			raise Exception("Sort not found")
 
+	# TODO
 	def sortBucket(self):
 		print "Not yet implemented"
 
@@ -95,16 +98,23 @@ class SortableList:
 			# insert current after the smaller value
 			self.my_list[j+1] = current
 
+	# TODO
 	def sortMerge(self):
 		print "Not yet implemented"
 
 	def sortPython(self):
 		self.my_list.sort()
 
+	# TODO
 	def sortQuick(self):
 		print "Not yet implemented"
 
+	# TODO
 	def sortSelection(self):
+		print "Not yet implemented"
+
+	# TODO
+	def sortShell(self):
 		print "Not yet implemented"
 
 def timeSort(to_sort, algo):
