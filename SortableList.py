@@ -107,8 +107,7 @@ class SortableList:
 	def sortSelection(self):
 		print "Not yet implemented"
 
-if __name__ == "__main__":
-
+def main():
 	if (len(argv) >= 4):
 		script, algo, typ, n = argv
 		n = int(n)
@@ -118,23 +117,44 @@ if __name__ == "__main__":
 		typ = raw_input("How to build? ")
 		n = int(raw_input("How many elements? "))
 	
-	# Make list 
-	nums = SortableList(n)
-	nums.build(typ)
+	# Run one sort
+	if (algo != 'all'):
+		# Make list 
+		nums = SortableList(n)
+		nums.build(typ)
 
-	# Print original list
-	print "Orignal list: "
-	nums.printList()
+		# Print original list
+		print "Orignal list: "
+		nums.printList()
 
-	# Make copy
-	backup = nums.copy()
+		# Sort original list and time the sort
+		start = timeit.default_timer()
+		nums.sort(algo)
+		stop = timeit.default_timer()
 
-	# Sort original list
-	start = timeit.default_timer()
-	nums.sort(algo)
-	stop = timeit.default_timer()
+		# Printed sorted list with run time
+		print "Sorted list: "
+		nums.printList()
+		print "Running time: " + str(stop - start)
 
-	# Printed sorted list with run time
-	print "Sorted list: "
-	nums.printList()
-	print "Running time: " + str(stop - start)
+	# Run all sorts
+	elif (algo == 'all'):
+		# Make list and copies
+		nums1 = SortableList(n)
+		nums1.build(typ)
+		nums2 = nums1.copy()
+
+		# Run and time insertion sort
+		start = timeit.default_timer()
+		nums1.sort('insertion')
+		stop = timeit.default_timer()
+		print "Insertion sort: " + str(stop - start)
+
+		# Run and time built in python sort
+		start = timeit.default_timer()
+		nums2.sort('python')
+		stop = timeit.default_timer()
+		print "Python sort: " + str(stop - start)
+
+if __name__ == '__main__':
+	main()
