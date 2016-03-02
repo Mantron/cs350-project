@@ -21,8 +21,13 @@ class SortableList:
 	def printList(self):
 		print self.my_list
 
+	# Builds the list according to the typ parameter
 	def build(self, typ):
-		if (typ == "ordered"):
+		if (typ == "few"):
+			self.buildFew()
+		elif (typ == "nearly"):
+			self.buildNearly()
+		elif (typ == "ordered"):
 			self.buildOrdered()
 		elif (typ == "random"):
 			self.buildRandom()
@@ -33,19 +38,40 @@ class SortableList:
 		else:
 			raise Exception("Build not found")
 
+	# Few unique values
+	def buildFew(self):
+		mod = int(self.size * 0.01) + 2
+		for i in range(0,self.size):
+			rand = random.randrange(0,100)
+			num = rand % mod
+			self.my_list.append(num)
+
+	# Nearly sorted - swaps 1% of ordered values at random with previous
+	def buildNearly(self):
+		self.buildOrdered()
+		swaps = int(self.size * 0.01) + 1
+		end = self.size - 1
+		for i in range(0,swaps):
+			j = random.randrange(1,end)
+			self.my_list[j], self.my_list[j-1] = self.my_list[j-1], self.my_list[j]
+
+	# Ordered - counts up from 0
 	def buildOrdered(self):
 		for i in range(0,self.size):
 			self.my_list.append(i)
 
+	# Random ints between 0 and 99
 	def buildRandom(self):
 		for i in range(0,self.size):
 			self.my_list.append(random.randrange(0,100))
 
+	# Reverse - counts down from size - 1
 	def buildReverse(self):
 		max = self.size -1
 		for i in range(max, -1, -1):
 			self.my_list.append(i)
 
+	# String - generates random strings
 	def buildString(self):
 		for i in range(0, self.size):
 			length = random.randrange(3,10)
@@ -59,6 +85,7 @@ class SortableList:
 				return false
 		return True
 
+	# Sorts the list according to the passed in algo parameter
 	def sort(self, algo):
 		if (algo == "bucket"):
 			self.sortBucket()
@@ -78,9 +105,11 @@ class SortableList:
 			raise Exception("Sort not found")
 
 	# TODO
+	# Bucket Sort
 	def sortBucket(self):
 		print "Not yet implemented"
 
+	# Insertion Sort
 	def sortInsertion(self):
 
 		# For each element in the list...
@@ -99,24 +128,30 @@ class SortableList:
 			self.my_list[j+1] = current
 
 	# TODO
+	# Merge Sort
 	def sortMerge(self):
 		print "Not yet implemented"
 
+	# Python sort
 	def sortPython(self):
 		self.my_list.sort()
 
 	# TODO
+	# Quick Sort
 	def sortQuick(self):
 		print "Not yet implemented"
 
 	# TODO
+	# Selection Sort
 	def sortSelection(self):
 		print "Not yet implemented"
 
 	# TODO
+	# Shell sort
 	def sortShell(self):
 		print "Not yet implemented"
 
+# Returns the run time of the chosen sort
 def timeSort(to_sort, algo):
 	start = timeit.default_timer()
 	to_sort.sort(algo)
