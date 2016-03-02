@@ -3,12 +3,13 @@
 # Anton Zipper - CS350 Project - SortableList.py
 
 import sys
-from sys import argv
-import copy
-import string
-import random
-import timeit
+from sys import argv	# for command line args
+import copy		# for deepcopying lists
+import string		# for generating strings
+import random		# for putting random numbers in the list
+import timeit		# for recording run time
 
+# A list with various build and sort methods
 class SortableList:
 
 	def __init__(self, size):
@@ -85,7 +86,7 @@ class SortableList:
 				return false
 		return True
 
-	# Sorts the list according to the passed in algo parameter
+	# Sorts the list according to the algo parameter
 	def sort(self, algo):
 		if (algo == "bucket"):
 			self.sortBucket()
@@ -111,7 +112,6 @@ class SortableList:
 
 	# Insertion Sort
 	def sortInsertion(self):
-
 		# For each element in the list...
 		for i in range(1, self.size):
 			current = self.my_list[i]
@@ -159,11 +159,12 @@ def timeSort(to_sort, algo):
 	return (stop - start)
 
 def main():
+	# Get command line args... 
 	if (len(argv) >= 4):
 		script, algo, typ, n = argv
 		n = int(n)
+	# ... or prompt the user if there are no args
 	else:
-		script = argv[0]	
 		algo = raw_input("Which sort? ")
 		typ = raw_input("How to build? ")
 		n = int(raw_input("How many elements? "))
@@ -188,7 +189,7 @@ def main():
 
 	# Run all sorts
 	elif (algo == 'all'):
-		# Make list and copies
+		# Make list and copy it for each sort
 		list_ins = SortableList(n)
 		list_ins.build(typ)
 		list_py = list_ins.copy()
@@ -197,7 +198,7 @@ def main():
 		time_ins = timeSort(list_ins, 'insertion')
 		print "Insertion sort: " + str(time_ins)
 
-		# Run and time built in python sort
+		# Run and time built-in python sort
 		time_py = timeSort(list_py, 'python')
 		print "Python sort: " + str(time_py)
 
