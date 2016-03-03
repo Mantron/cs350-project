@@ -90,6 +90,8 @@ class SortableList:
 	def sort(self, algo):
 		if (algo == "bucket"):
 			self.sortBucket()
+		elif (algo == "cocktail"):
+			self.sortCocktail()
 		elif (algo == "insertion"):
 			self.sortInsertion()
 		elif (algo == "merge"):
@@ -100,15 +102,53 @@ class SortableList:
 			self.sortQuick()
 		elif (algo == "selection"):
 			self.sortSelection()
-		elif (algo == "shell"):
-			self.sortShell()
 		else:
 			raise Exception("Sort not found")
 
-	# TODO
 	# Bucket Sort
+	# Doesn't work with strings
 	def sortBucket(self):
-		print "Not yet implemented"
+		# Find highest value to figure out number of buckets
+		high = 0
+		for x in self.my_list:
+			if (x > high):
+				high = x
+		r = high / 10 + 1
+		buckets = [[] for x in range(r)]
+
+		# Distribute the elements of your list into buckets
+		for x in self.my_list:
+			buckets[int(x/10)].append(x)
+
+		# Sort and join each bucket
+		out = []
+		for b in buckets:
+			b.sort()
+			out += b
+		self.my_list = out
+
+	# Cocktail Sort
+	def sortCocktail(self):
+		start = -1
+		end = self.size - 2
+		swapped = True
+		
+		# List is sorted when you make it through the list with no swaps
+		while swapped:
+			# Forward pass
+			swapped = False
+			for i in range(start+1, end):
+				if (self.my_list[i] > self.my_list[i+1]):
+					self.my_list[i], self.my_list[i+1] = self.my_list[i+1], self.my_list[i]
+					swapped = True
+			if not swapped:
+				break
+			# Backward pass
+			swapped = False
+			for i in range(end, start, -1):
+				if (self.my_list[i] > self.my_list[i+1]):
+					self.my_list[i], self.my_list[i+1] = self.my_list[i+1], self.my_list[i]
+					swapped = True
 
 	# Insertion Sort
 	def sortInsertion(self):
@@ -144,11 +184,6 @@ class SortableList:
 	# TODO
 	# Selection Sort
 	def sortSelection(self):
-		print "Not yet implemented"
-
-	# TODO
-	# Shell sort
-	def sortShell(self):
 		print "Not yet implemented"
 
 # Returns the run time of the chosen sort
@@ -195,9 +230,24 @@ def main():
 			outfile.write(heading)
 
 			# Make list and copy it for each sort
-			list_ins = SortableList(n)
-			list_ins.build(typ)
-			list_py = list_ins.copy()
+			list_buc = SortableList(n)
+			list_buc.build(typ)
+			list_coc = list_buc.copy()
+			list_ins = list_buc.copy()
+			list_py = list_buc.copy()
+
+			# Run and time bucket sort
+			if (typ != "string"):
+				time_buc = timeSort(list_buc, 'bucket')
+				string_buc = "Bucket sort: " + str(time_buc)
+				print string_buc
+				outfile.write('\t' + string_buc + '\n')
+
+			# Run and time cocktail sort
+			time_coc = timeSort(list_coc, 'cocktail')
+			string_coc = "Cocktail sort: " + str(time_coc)
+			print string_coc
+			outfile.write('\t' + string_coc + '\n')
 
 			# Run and time insertion sort
 			time_ins = timeSort(list_ins, 'insertion')

@@ -16,6 +16,20 @@ class SortsTestCase(unittest.TestCase):
 		test_list.my_list.reverse()
 		self.assertTrue(test_list.isSorted())
 
+	# Tests Bucket Sort
+	def test_bucket(self):
+		test_list = SortableList(100)
+		test_list.buildRandom()
+		test_list.sortBucket()
+		self.assertTrue(test_list.isSorted())
+
+	# Tests Cocktail Sort
+	def test_cocktail(self):
+		test_list = SortableList(100)
+		test_list.buildRandom()
+		test_list.sortCocktail()
+		self.assertTrue(test_list.isSorted())
+
 	# Tests Insertion Sort
 	def test_insertion(self):
 		test_list = SortableList(100)
