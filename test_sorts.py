@@ -58,5 +58,12 @@ class SortsTestCase(unittest.TestCase):
 		test_list.sortQuick()
 		self.assertTrue(test_list.isSorted())
 
+	# Selection Sort test
+	def test_selection(self):
+		test_list = SortableList(100)
+		test_list.buildRandom()
+		test_list.sortSelection()
+		self.assertTrue(test_list.isSorted())
+
 if __name__ == '__main__':
 	unittest.main()

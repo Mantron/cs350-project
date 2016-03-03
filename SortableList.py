@@ -233,9 +233,9 @@ class SortableList:
 		# Select random pivot value
 		pindex = random.randrange(0,len(sublist))
 		pivot = sublist[pindex]
-		less, same, greater = [], [], []	
 	
 		# Make lists of items less than, greater than, and the same as the pivot
+		less, same, greater = [], [], []
 		for x in sublist:
 			if x < pivot:
 				less.append(x)
@@ -249,10 +249,17 @@ class SortableList:
 		greater_sorted = SortableList.quick(greater)
 		return less_sorted + same + greater_sorted
 
-	# TODO
 	# Selection Sort
 	def sortSelection(self):
-		print "Not yet implemented"
+		for i in range(0,self.size):
+			low = i
+			
+			# Find the position of the lowest remaining value
+			for j in range(i+1,self.size):
+				if self.my_list[j] < self.my_list[low]:
+					low = j
+			# Swap the ith value with the lowest value
+			self.my_list[i], self.my_list[low] = self.my_list[low], self.my_list[i]
 
 # Returns the run time of the chosen sort
 def timeSort(to_sort, algo):
@@ -305,6 +312,7 @@ def main():
 			list_mrg = list_buc.copy()
 			list_py = list_buc.copy()
 			list_qck = list_buc.copy()
+			list_sel = list_buc.copy()
 
 			# Run and time bucket sort
 			if (typ != "string"):
@@ -342,6 +350,12 @@ def main():
 			string_qck = "Quick sort: " + str(time_qck)
 			print string_qck
 			outfile.write('\t' + string_qck + '\n')
+
+			# Run and time selection sort
+			time_sel = timeSort(list_sel, 'selection')
+			string_sel = "Selection sort: " + str(time_sel)
+			print string_sel
+			outfile.write('\t' + string_sel + '\n')
 
 if __name__ == '__main__':
 	main()
