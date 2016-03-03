@@ -8,6 +8,7 @@ import copy		# for deepcopying lists
 import string		# for generating strings
 import random		# for putting random numbers in the list
 import timeit		# for recording run time
+import math		# for log10 function
 
 # A list with various build and sort methods
 class SortableList:
@@ -41,11 +42,9 @@ class SortableList:
 
 	# Few unique values
 	def buildFew(self):
-		mod = int(self.size * 0.01) + 2
+		end = int(math.log10(self.size)) + 1
 		for i in range(0,self.size):
-			rand = random.randrange(0,100)
-			num = rand % mod
-			self.my_list.append(num)
+			self.my_list.append(random.randrange(0,end))
 
 	# Nearly sorted - swaps 1% of ordered values at random with previous
 	def buildNearly(self):
@@ -64,7 +63,7 @@ class SortableList:
 	# Random ints between 0 and 99
 	def buildRandom(self):
 		for i in range(0,self.size):
-			self.my_list.append(random.randrange(0,100))
+			self.my_list.append(random.randrange(0,1000))
 
 	# Reverse - counts down from size - 1
 	def buildReverse(self):
