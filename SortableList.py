@@ -123,7 +123,16 @@ class SortableList:
 		# Sort and join each bucket
 		out = []
 		for b in buckets:
-			b.sort()
+			# Insertion Sort
+			blen = len(b)
+			for i in range(1, blen):
+				current = b[i]
+				j = i - 1
+				while ((j >= 0) and (b[j] > current)):
+					b[j+1] = b[j]
+					j -= 1
+				b[j+1] = current
+
 			out += b
 		self.my_list = out
 
@@ -138,7 +147,7 @@ class SortableList:
 			# Forward pass
 			swapped = False
 			for i in range(start+1, end):
-				if (self.my_list[i] > self.my_list[i+1]):
+				if self.my_list[i] > self.my_list[i+1]:
 					self.my_list[i], self.my_list[i+1] = self.my_list[i+1], self.my_list[i]
 					swapped = True
 			if not swapped:
@@ -146,7 +155,7 @@ class SortableList:
 			# Backward pass
 			swapped = False
 			for i in range(end, start, -1):
-				if (self.my_list[i] > self.my_list[i+1]):
+				if self.my_list[i] > self.my_list[i+1]:
 					self.my_list[i], self.my_list[i+1] = self.my_list[i+1], self.my_list[i]
 					swapped = True
 
@@ -167,10 +176,40 @@ class SortableList:
 			# insert current after the smaller value
 			self.my_list[j+1] = current
 
-	# TODO
 	# Merge Sort
 	def sortMerge(self):
-		print "Not yet implemented"
+		self.my_list = SortableList.merge(self.my_list)
+
+	# Merge Sort recursive helper
+	@staticmethod
+	def merge(items):
+		result = []
+
+		# Base case
+		if len(items) < 2:
+			return items
+
+		# Split list in half and recursively call on each half
+		mid = len(items) / 2
+		right = SortableList.merge(items[:mid])
+		left = SortableList.merge(items[mid:])
+
+		# Combine two halves
+		r = 0
+		l = 0
+		while (r < len(right) and l < len(left)):
+			if right[r] > left[l]:
+				result.append(left[l])
+				l += 1
+			else:
+				result.append(right[r])
+				r += 1
+
+		# Once either half is done, append the rest of the other half
+		result += right[r:]
+		result += left[l:]
+
+		return result
 
 	# Python sort
 	def sortPython(self):
@@ -234,6 +273,7 @@ def main():
 			list_buc.build(typ)
 			list_coc = list_buc.copy()
 			list_ins = list_buc.copy()
+			list_mrg = list_buc.copy()
 			list_py = list_buc.copy()
 
 			# Run and time bucket sort
@@ -255,7 +295,13 @@ def main():
 			print string_ins
 			outfile.write('\t' + string_ins + '\n')
 
-			# Run and time built-in python sort
+			# Run and time merge sort
+			time_mrg = timeSort(list_mrg, 'merge')
+			string_mrg = "Merge sort: " + str(time_mrg)
+			print string_mrg
+			outfile.write('\t' + string_mrg + '\n')
+
+			# Run and time python built-in sort
 			time_py = timeSort(list_py, 'python')
 			string_py = "Python sort: " + str(time_py)
 			print string_py
