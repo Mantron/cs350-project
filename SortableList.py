@@ -159,7 +159,7 @@ def timeSort(to_sort, algo):
 	return (stop - start)
 
 def main():
-	# Get command line args... 
+	# Get command line args for other runs... 
 	if (len(argv) >= 4):
 		script, algo, typ, n = argv
 		n = int(n)
@@ -189,18 +189,27 @@ def main():
 
 	# Run all sorts
 	elif (algo == 'all'):
-		# Make list and copy it for each sort
-		list_ins = SortableList(n)
-		list_ins.build(typ)
-		list_py = list_ins.copy()
+		with open("output.txt", 'a') as outfile:
+			# add heading to file
+			heading = typ + ' ' + str(n) + '\n'
+			outfile.write(heading)
 
-		# Run and time insertion sort
-		time_ins = timeSort(list_ins, 'insertion')
-		print "Insertion sort: " + str(time_ins)
+			# Make list and copy it for each sort
+			list_ins = SortableList(n)
+			list_ins.build(typ)
+			list_py = list_ins.copy()
 
-		# Run and time built-in python sort
-		time_py = timeSort(list_py, 'python')
-		print "Python sort: " + str(time_py)
+			# Run and time insertion sort
+			time_ins = timeSort(list_ins, 'insertion')
+			string_ins = "Insertion sort: " + str(time_ins)
+			print string_ins
+			outfile.write('\t' + string_ins + '\n')
+
+			# Run and time built-in python sort
+			time_py = timeSort(list_py, 'python')
+			string_py = "Python sort: " + str(time_py)
+			print string_py
+			outfile.write('\t' + string_py + '\n')
 
 if __name__ == '__main__':
 	main()
