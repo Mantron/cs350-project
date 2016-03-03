@@ -121,7 +121,7 @@ class SortableList:
 			buckets[int(x/10)].append(x)
 
 		# Sort and join each bucket
-		out = []
+		result = []
 		for b in buckets:
 			# Insertion Sort
 			blen = len(b)
@@ -133,8 +133,10 @@ class SortableList:
 					j -= 1
 				b[j+1] = current
 
-			out += b
-		self.my_list = out
+			result += b
+
+		# Point local my_list to sorted list
+		self.my_list = result
 
 	# Cocktail Sort
 	def sortCocktail(self):
@@ -182,30 +184,32 @@ class SortableList:
 
 	# Merge Sort recursive helper
 	@staticmethod
-	def merge(items):
-		result = []
-
-		# Base case
-		if len(items) < 2:
-			return items
+	def merge(sublist):
+		# Base case, list of 1 (or empty)
+		if len(sublist) < 2:
+			return sublist
 
 		# Split list in half and recursively call on each half
-		mid = len(items) / 2
-		right = SortableList.merge(items[:mid])
-		left = SortableList.merge(items[mid:])
+		mid = len(sublist) / 2
+		right = SortableList.merge(sublist[:mid])
+		left = SortableList.merge(sublist[mid:])
 
 		# Combine two halves
-		r = 0
-		l = 0
-		while (r < len(right) and l < len(left)):
-			if right[r] > left[l]:
-				result.append(left[l])
-				l += 1
-			else:
+		result = []
+		r, l = 0, 0
+		rlen = len(right)
+		llen = len(left)
+		while (r < rlen and l < llen):
+			# Append current right item if it's smaller
+			if right[r] < left[l]:
 				result.append(right[r])
 				r += 1
+			# Otherwise append current left item
+			else:
+				result.append(left[l])
+				l += 1
 
-		# Once either half is done, append the rest of the other half
+		# Once either half is done, append the rest
 		result += right[r:]
 		result += left[l:]
 
@@ -215,10 +219,35 @@ class SortableList:
 	def sortPython(self):
 		self.my_list.sort()
 
-	# TODO
 	# Quick Sort
 	def sortQuick(self):
-		print "Not yet implemented"
+		self.my_list = SortableList.quick(self.my_list)
+
+	# Quick Sort recursive helper
+	@staticmethod
+	def quick(sublist):
+		# Base case, list of 1 (or empty)
+		if len(sublist) < 2:
+			return sublist
+
+		# Select random pivot value
+		pindex = random.randrange(0,len(sublist))
+		pivot = sublist[pindex]
+		less, same, greater = [], [], []	
+	
+		# Make lists of items less than, greater than, and the same as the pivot
+		for x in sublist:
+			if x < pivot:
+				less.append(x)
+			elif x > pivot:
+				greater.append(x)
+			else:
+				same.append(x)
+
+		# Sort and return sublists
+		less_sorted = SortableList.quick(less)
+		greater_sorted = SortableList.quick(greater)
+		return less_sorted + same + greater_sorted
 
 	# TODO
 	# Selection Sort
@@ -275,6 +304,7 @@ def main():
 			list_ins = list_buc.copy()
 			list_mrg = list_buc.copy()
 			list_py = list_buc.copy()
+			list_qck = list_buc.copy()
 
 			# Run and time bucket sort
 			if (typ != "string"):
@@ -306,6 +336,12 @@ def main():
 			string_py = "Python sort: " + str(time_py)
 			print string_py
 			outfile.write('\t' + string_py + '\n')
+
+			# Run and time quick sort
+			time_qck = timeSort(list_qck, 'quick')
+			string_qck = "Quick sort: " + str(time_qck)
+			print string_qck
+			outfile.write('\t' + string_qck + '\n')
 
 if __name__ == '__main__':
 	main()

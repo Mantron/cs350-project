@@ -51,5 +51,12 @@ class SortsTestCase(unittest.TestCase):
 		test_list.sortPython()
 		self.assertTrue(test_list.isSorted())
 
+	# Quick Sort test
+	def test_quick(self):
+		test_list = SortableList(100)
+		test_list.buildRandom()
+		test_list.sortQuick()
+		self.assertTrue(test_list.isSorted())
+
 if __name__ == '__main__':
 	unittest.main()
