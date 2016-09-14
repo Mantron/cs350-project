@@ -267,6 +267,7 @@ def timeSort(to_sort, algo):
 	stop = timeit.default_timer()
 	return (stop - start)
 
+# Runs algo on list, and adds the time it took to the outfile
 def outputSort(list, algo, outfile):
 	time = timeSort(list, algo)
 	out_string = algo + " sort: " + str(time)
