@@ -1,5 +1,5 @@
 # cs350-project
-A Python script that runs a variety of sorting algorithms on different types of
+A Python2 script that runs a variety of sorting algorithms on different types of
 lists, and displays the running times for each. You may select an individual
 sort to time, or run them all. When all sorts are chosen, the results are
 logged to the file "output.txt", in addition to being displayed on the screen.
