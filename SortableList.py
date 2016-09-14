@@ -267,6 +267,12 @@ def timeSort(to_sort, algo):
 	stop = timeit.default_timer()
 	return (stop - start)
 
+def outputSort(list, algo, outfile):
+	time = timeSort(list, algo)
+	out_string = algo + " sort: " + str(time)
+	print out_string
+	outfile.write('\t' + out_string + '\n')
+
 def main():
 	# Get command line args for other runs... 
 	if (len(argv) >= 4):
@@ -313,48 +319,15 @@ def main():
 			list_qck = list_buc.copy()
 			list_sel = list_buc.copy()
 
-			# Run and time bucket sort
+			# Time how long it takes to run each sort, and output results to the outfile
 			if (typ != "string"):
-				time_buc = timeSort(list_buc, 'bucket')
-				string_buc = "Bucket sort: " + str(time_buc)
-				print string_buc
-				outfile.write('\t' + string_buc + '\n')
-
-			# Run and time cocktail sort
-			time_coc = timeSort(list_coc, 'cocktail')
-			string_coc = "Cocktail sort: " + str(time_coc)
-			print string_coc
-			outfile.write('\t' + string_coc + '\n')
-
-			# Run and time insertion sort
-			time_ins = timeSort(list_ins, 'insertion')
-			string_ins = "Insertion sort: " + str(time_ins)
-			print string_ins
-			outfile.write('\t' + string_ins + '\n')
-
-			# Run and time merge sort
-			time_mrg = timeSort(list_mrg, 'merge')
-			string_mrg = "Merge sort: " + str(time_mrg)
-			print string_mrg
-			outfile.write('\t' + string_mrg + '\n')
-
-			# Run and time python built-in sort
-			time_py = timeSort(list_py, 'python')
-			string_py = "Python sort: " + str(time_py)
-			print string_py
-			outfile.write('\t' + string_py + '\n')
-
-			# Run and time quick sort
-			time_qck = timeSort(list_qck, 'quick')
-			string_qck = "Quick sort: " + str(time_qck)
-			print string_qck
-			outfile.write('\t' + string_qck + '\n')
-
-			# Run and time selection sort
-			time_sel = timeSort(list_sel, 'selection')
-			string_sel = "Selection sort: " + str(time_sel)
-			print string_sel
-			outfile.write('\t' + string_sel + '\n')
+				outputSort(list_buc, 'bucket', outfile)
+			outputSort(list_coc, 'cocktail', outfile)
+			outputSort(list_ins, 'insertion', outfile)
+			outputSort(list_mrg, 'merge', outfile)
+			outputSort(list_py, 'python', outfile)
+			outputSort(list_qck, 'quick', outfile)
+			outputSort(list_sel, 'selection', outfile)
 
 if __name__ == '__main__':
 	main()
