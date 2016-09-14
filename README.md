@@ -2,7 +2,8 @@
 CS350 Sorting Algorithm Project
 
 ## Usage
-python SortableList.py "sort type" "list type" "number of elements"
+$python SortableList.py "sort type" "list type" "number of elements"
+ex. $python SortableList.py all random 100
 
 sort types:
  * all
