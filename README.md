@@ -24,7 +24,7 @@ Sort types:
 List types:
  * few - few unique ints
  * nearly - nearly sorted list of ints
- * ordered - ints counting up from 0 to n
+ * ordered - ints counting up from 0 to size - 1
  * random - random ints
- * reverse - ints counting down from n-1 to 0
+ * reverse - ints counting down from size - 1 to 0
  * string - randomly generated strings

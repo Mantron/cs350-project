@@ -43,38 +43,38 @@ class SortableList:
     # Few unique values
     def buildFew(self):
         end = int(math.log10(self.size)) + 1
-        for i in range(0,self.size):
-            self.my_list.append(random.randrange(0,end))
+        for i in range(0, self.size):
+            self.my_list.append(random.randrange(0, end))
 
     # Nearly sorted - swaps 1% of ordered values at random with previous
     def buildNearly(self):
         self.buildOrdered()
         swaps = int(self.size * 0.01) + 1
         end = self.size - 1
-        for i in range(0,swaps):
-            j = random.randrange(1,end)
+        for i in range(0, swaps):
+            j = random.randrange(1, end)
             self.my_list[j], self.my_list[j-1] = self.my_list[j-1], self.my_list[j]
 
-    # Ordered - counts up from 0
+    # Ordered - counts up from 0 to size - 1
     def buildOrdered(self):
-        for i in range(0,self.size):
+        for i in range(0, self.size):
             self.my_list.append(i)
 
     # Random ints between 0 and 99
     def buildRandom(self):
-        for i in range(0,self.size):
-            self.my_list.append(random.randrange(0,1000))
+        for i in range(0, self.size):
+            self.my_list.append(random.randrange(0, 1000))
 
     # Reverse - counts down from size - 1
     def buildReverse(self):
-        max = self.size -1
+        max = self.size - 1
         for i in range(max, -1, -1):
             self.my_list.append(i)
 
     # String - generates random strings
     def buildString(self):
         for i in range(0, self.size):
-            length = random.randrange(3,10)
+            length = random.randrange(3, 10)
             rstring = ''.join([random.choice(string.ascii_lowercase) for j in xrange(length)])
             self.my_list.append(rstring)
 
