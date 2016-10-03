@@ -12,6 +12,20 @@ import math		# for log10 function
 
 # A list with various build and sort methods
 class SortableList:
+    # Constants for parsing input
+    BUILD_FEW = "few"
+    BUILD_NEARLY = "nearly"
+    BUILD_ORDERED = "ordered"
+    BUILD_RANDOM = "random"
+    BUILD_REVERSE = "reverse"
+    BUILD_STRING = "string"
+    SORT_BUCKET = "bucket"
+    SORT_COCKTAIL = "cocktail"
+    SORT_INSERTION = "insertion"
+    SORT_MERGE = "merge"
+    SORT_PYTHON = "python"
+    SORT_QUICK = "quick"
+    SORT_SELECTION = "selection"
 
     def __init__(self, size):
         self.my_list = []
@@ -25,17 +39,17 @@ class SortableList:
 
     # Builds the list according to the typ parameter
     def build(self, typ):
-        if (typ == "few"):
+        if typ == self.BUILD_FEW:
             self.buildFew()
-        elif (typ == "nearly"):
+        elif typ == self.BUILD_NEARLY:
             self.buildNearly()
-        elif (typ == "ordered"):
+        elif typ == self.BUILD_ORDERED:
             self.buildOrdered()
-        elif (typ == "random"):
+        elif typ == self.BUILD_RANDOM:
             self.buildRandom()
-        elif (typ == "reverse"):
+        elif typ == self.BUILD_REVERSE:
             self.buildReverse()
-        elif (typ == "string"):
+        elif typ == self.BUILD_STRING:
             self.buildString()
         else:
             raise Exception("Build not found")
@@ -87,19 +101,19 @@ class SortableList:
 
     # Sorts the list according to the algo parameter
     def sort(self, algo):
-        if (algo == "bucket"):
+        if algo == self.SORT_BUCKET:
             self.sortBucket()
-        elif (algo == "cocktail"):
+        elif algo == self.SORT_COCKTAIL:
             self.sortCocktail()
-        elif (algo == "insertion"):
+        elif algo == self.SORT_INSERTION:
             self.sortInsertion()
-        elif (algo == "merge"):
+        elif algo == self.SORT_MERGE:
             self.sortMerge()
-        elif (algo == "python"):
+        elif algo == self.SORT_PYTHON:
             self.sortPython()
-        elif (algo == "quick"):
+        elif algo == self.SORT_QUICK:
             self.sortQuick()
-        elif (algo == "selection"):
+        elif algo == self.SORT_SELECTION:
             self.sortSelection()
         else:
             raise Exception("Sort not found")
