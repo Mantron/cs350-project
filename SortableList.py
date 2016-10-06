@@ -336,13 +336,13 @@ def main():
 
             # Time how long it takes to run each sort, and output results to the outfile
             if (typ != "string"):
-                outputSort(list_buc, 'bucket', outfile)
-            outputSort(list_coc, 'cocktail', outfile)
-            outputSort(list_ins, 'insertion', outfile)
-            outputSort(list_mrg, 'merge', outfile)
-            outputSort(list_py, 'python', outfile)
-            outputSort(list_qck, 'quick', outfile)
-            outputSort(list_sel, 'selection', outfile)
+                outputSort(list_buc, SortableList.SORT_BUCKET, outfile)
+            outputSort(list_coc, SortableList.SORT_COCKTAIL, outfile)
+            outputSort(list_ins, SortableList.SORT_INSERTION, outfile)
+            outputSort(list_mrg, SortableList.SORT_MERGE, outfile)
+            outputSort(list_py, SortableList.SORT_PYTHON, outfile)
+            outputSort(list_qck, SortableList.SORT_QUICK, outfile)
+            outputSort(list_sel, SortableList.SORT_SELECTION, outfile)
 
 if __name__ == '__main__':
     main()
