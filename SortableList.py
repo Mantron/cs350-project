@@ -9,6 +9,7 @@ import string		# for generating strings
 import random		# for putting random numbers in the list
 import timeit		# for recording run time
 import math		# for log10 function
+import csv      # for file output
 
 # A list with various build and sort methods
 class SortableList:
@@ -282,11 +283,13 @@ def timeSort(to_sort, algo):
     return (stop - start)
 
 # Runs algo on list, and adds the time it took to the outfile
-def outputSort(list, algo, outfile):
+def outputSort(list, build_type, algo, outfile):
+    csv_writer = csv.writer(outfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
     time = timeSort(list, algo)
     out_string = algo + " sort: " + str(time)
     print out_string
-    outfile.write('\t' + out_string + '\n')
+    # outfile.write('\t' + out_string + '\n')
+    csv_writer.writerow([build_type, list.size, algo, time])
 
 def main():
     # Get command line args for other runs...
@@ -319,10 +322,10 @@ def main():
 
     # Run all sorts
     elif (algo == 'all'):
-        with open("output.txt", 'a') as outfile:
+        with open("output.csv", 'a') as outfile:
             # add heading to file
-            heading = typ + ' ' + str(n) + '\n'
-            outfile.write(heading)
+            # heading = typ + ' ' + str(n) + '\n'
+            # outfile.write(heading)
 
             # Make list and copy it for each sort
             list_buc = SortableList(n)
@@ -336,13 +339,13 @@ def main():
 
             # Time how long it takes to run each sort, and output results to the outfile
             if (typ != "string"):
-                outputSort(list_buc, SortableList.SORT_BUCKET, outfile)
-            outputSort(list_coc, SortableList.SORT_COCKTAIL, outfile)
-            outputSort(list_ins, SortableList.SORT_INSERTION, outfile)
-            outputSort(list_mrg, SortableList.SORT_MERGE, outfile)
-            outputSort(list_py, SortableList.SORT_PYTHON, outfile)
-            outputSort(list_qck, SortableList.SORT_QUICK, outfile)
-            outputSort(list_sel, SortableList.SORT_SELECTION, outfile)
+                outputSort(list_buc, typ, SortableList.SORT_BUCKET, outfile)
+            outputSort(list_coc, typ, SortableList.SORT_COCKTAIL, outfile)
+            outputSort(list_ins, typ, SortableList.SORT_INSERTION, outfile)
+            outputSort(list_mrg, typ, SortableList.SORT_MERGE, outfile)
+            outputSort(list_py, typ, SortableList.SORT_PYTHON, outfile)
+            outputSort(list_qck, typ, SortableList.SORT_QUICK, outfile)
+            outputSort(list_sel, typ, SortableList.SORT_SELECTION, outfile)
 
 if __name__ == '__main__':
     main()
